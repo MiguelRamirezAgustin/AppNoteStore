@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/color_blue"
     android:id="@+id/content"
     tools:context=".MainActivity">
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/color_black"
+        android:background="@color/color_blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -81,6 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/ic_baseline_create_new_folder_24"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:backgroundTint="@color/white"
         android:layout_margin="20dp">
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
