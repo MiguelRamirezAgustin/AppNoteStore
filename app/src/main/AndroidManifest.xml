@@ -3,7 +3,7 @@
     package="com.notasapp.notas">
 
     <application
-        android:name=".DB.NoteDB"
+        android:name=".DB.Note"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

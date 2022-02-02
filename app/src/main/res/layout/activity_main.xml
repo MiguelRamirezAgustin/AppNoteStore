@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:orientation="horizontal"
-        android:background="@color/color_blue"
+        android:background="@color/color_blue_primary"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -57,13 +57,13 @@
             android:id="@+id/text_title"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_gray"
+            android:textColor="@color/white"
             android:textAlignment="center"
             android:layout_gravity="center"
             android:text="@string/app_note_register"
             android:textSize="20dp"
             android:fontFamily="sans-serif-condensed-medium"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="300dp"
             android:visibility="gone"/>
 
 
@@ -75,7 +75,7 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btn_Items"
+        android:id="@+id/btn_new_sections"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
