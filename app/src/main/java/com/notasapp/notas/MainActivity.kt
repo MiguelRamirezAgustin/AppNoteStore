@@ -1,6 +1,7 @@
 package com.notasapp.notas
 
 import android.content.DialogInterface
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.InputType
@@ -9,21 +10,30 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
 import com.notasapp.notas.DB.Note
+import com.notasapp.notas.DB.NoteSection
+import com.notasapp.notas.Model.SectionModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.onComplete
 import org.jetbrains.anko.uiThread
+import java.io.Console
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
+
+    var listItems :MutableList<SectionModel> = ArrayList()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         getEntity()
 
-        rv_items.setOnClickListener {
 
-        }
 
 
         //Add new items sections
@@ -31,13 +41,18 @@ class MainActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
               .create()
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_customs_new_items, null)
-            val buttonCancel = view.findViewById<Button>(R.id.btn_cancel)
-            val buttonAcept = view.findViewById<Button>(R.id.btn_ok)
+            val editText = view.findViewById<TextInputEditText>(R.id.textFiel_text_items)
+            val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
+            val btnAcep = view.findViewById<Button>(R.id.btn_ok)
             builder.setView(view)
-            buttonCancel.setOnClickListener {
+            btnAcep.setOnClickListener {
                 builder.dismiss()
+                if(editText.text!!.trim().toString() != ""){
+                    println("Codigo Color---------------->"+ colorGenerate())
+                    creatreNewItems(editText.text!!.trim().toString())
+                }
             }
-            buttonAcept.setOnClickListener {
+            bnCancel.setOnClickListener {
                 builder.dismiss()
             }
             builder.setCanceledOnTouchOutside(false)
@@ -49,13 +64,45 @@ class MainActivity : AppCompatActivity() {
 
     private fun getEntity(){
         doAsync {
-            val listEntity = Note.dbNoteSection.noteSectionDao().getNoteSection()
+            val listSectionItems = Note.dbNoteSection.noteSectionDao().getNoteSection()
             uiThread {
-                if(listEntity.size == 0){
+                listItems.clear()
+                if(listSectionItems.size == 0){
                     text_title.visibility = View.VISIBLE
                 }else{
-
+                    text_title.visibility = View.GONE
+                    for(i in 0 until listSectionItems.size){
+                        val items = SectionModel(
+                            listSectionItems[i].id,
+                            listSectionItems[i].name,
+                            listSectionItems[i].color
+                        )
+                        listItems.add(items)
+                    }
                 }
+            }
+            onComplete {
+                println("Lista total items----------------->"+ listItems)
+                var adapter_ = AdaperSections(listSectionItems, this@MainActivity)
+                val rc_view = findViewById<RecyclerView>(R.id.rv_items)
+                rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
+                rc_view.adapter =  adapter_
+            }
+        }
+    }
+
+    private fun colorGenerate():Int{
+        val rnd = Random()
+        val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
+        return  color
+    }
+
+    private fun creatreNewItems(nameItems:String){
+        doAsync {
+            var noteSections = NoteSection(0, nameItems,"#2E6EBA")
+                Note.dbNoteSection.noteSectionDao().insertNoteSection(noteSections)
+            uiThread {
+
             }
         }
     }

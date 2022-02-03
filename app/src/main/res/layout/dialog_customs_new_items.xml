@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -14,7 +15,32 @@
         android:textColor="@color/color_black"
         android:textSize="20dp"
         android:gravity="center"
+        android:layout_marginTop="20dp"
         android:fontFamily="sans-serif-condensed-light" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textLayout_item"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/txtview_title"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Correo"
+        style="@style/MyTextInputLayout"
+        app:hintTextColor="@color/color_primary"
+        android:layout_marginTop="30dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/textFiel_text_items"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:fontFamily="sans-serif-light"
+            android:maxLength="50"
+            android:textColor="@color/color_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <!--- section button cancel,ok -->
@@ -22,7 +48,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_below="@+id/txtview_title"
+        android:layout_below="@+id/textLayout_item"
+        android:layout_marginTop="40dp"
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatButton

@@ -9,7 +9,7 @@ import androidx.room.Query
 interface NoteSectionDAO {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNoteSection(contac:NoteSection):Long
+    fun insertNoteSection(note:NoteSection):Long
 
     @Query("SELECT * FROM noteSection ")
     fun getNoteSection():List<NoteSection>
