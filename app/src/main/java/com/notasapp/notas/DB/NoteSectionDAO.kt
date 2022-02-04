@@ -13,4 +13,7 @@ interface NoteSectionDAO {
 
     @Query("SELECT * FROM noteSection ")
     fun getNoteSection():List<NoteSection>
+
+    @Query("DELETE FROM noteSection WHERE id=:parameterId")
+    fun deleteSectionItem(parameterId:Int)
 }

@@ -15,7 +15,8 @@ import com.notasapp.notas.Utilities.UtilsClass
 import kotlinx.android.synthetic.main.item_adapter_sections.view.*
 
 class AdaperSections(val items:List<NoteSection>,
-                     val context:Context) :RecyclerView.Adapter<AdaperSections.ViewHolder>() {
+                     val context:Context,
+                     val deleteSections: (id:Int) -> Unit) :RecyclerView.Adapter<AdaperSections.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -44,6 +45,7 @@ class AdaperSections(val items:List<NoteSection>,
             builder.setView(view)
             btnAcep.setOnClickListener {
                 builder.dismiss()
+                deleteSections(model_sections.id)
 
             }
             bnCancel.setOnClickListener {

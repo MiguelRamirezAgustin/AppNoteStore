@@ -33,6 +33,9 @@ class UtilsClass {
                 "#1A5276",
                 "#A9DFBF",
                 "#AED6F1",
+                "#F1C40F",
+                "#E74C3C",
+                "#3498DB"
             )
             return colors.random()
         }

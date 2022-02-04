@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
-        getEntity()
+        getListSections()
 
 
         //Add new items sections
@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    private fun getEntity(){
+    private fun getListSections(){
         doAsync {
             val listSectionItems = Note.dbNoteSection.noteSectionDao().getNoteSection()
             uiThread {
@@ -86,10 +86,21 @@ class MainActivity : AppCompatActivity() {
             }
             onComplete {
                 println("Lista total items----------------->"+ listItems)
-                var adapter_ = AdaperSections(listSectionItems, this@MainActivity)
+                var adapter_ = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)})
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items)
                 rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
                 rc_view.adapter =  adapter_
+            }
+        }
+    }
+
+    fun deleteItem(section: Int){
+        doAsync {
+            //val idItem = contact.id
+            println("Id Eliminar --> "+section)
+            Note.dbNoteSection.noteSectionDao().deleteSectionItem(section)
+            uiThread {
+                getListSections()
             }
         }
     }
@@ -101,7 +112,7 @@ class MainActivity : AppCompatActivity() {
                 Note.dbNoteSection.noteSectionDao().insertNoteSection(noteSections)
             uiThread {}
             onComplete {
-                getEntity()
+                getListSections()
             }
         }
     }
