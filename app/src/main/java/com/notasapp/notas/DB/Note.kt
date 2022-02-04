@@ -11,6 +11,6 @@ class Note :Application() {
 
     override fun onCreate() {
         super.onCreate()
-        dbNoteSection =  Room.databaseBuilder(this, NoteSectionsDB::class.java, "noteSection.db").build()
+        dbNoteSection =  Room.databaseBuilder(this, NoteSectionsDB::class.java, "sectionNote.db").build()
     }
 }

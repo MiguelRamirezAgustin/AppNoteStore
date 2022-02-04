@@ -16,11 +16,13 @@ import com.google.android.material.textfield.TextInputEditText
 import com.notasapp.notas.DB.Note
 import com.notasapp.notas.DB.NoteSection
 import com.notasapp.notas.Model.SectionModel
+import com.notasapp.notas.Utilities.UtilsClass
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.onComplete
 import org.jetbrains.anko.uiThread
 import java.io.Console
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         supportActionBar?.hide()
         getEntity()
-
-
 
 
         //Add new items sections
@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             btnAcep.setOnClickListener {
                 builder.dismiss()
                 if(editText.text!!.trim().toString() != ""){
-                    println("Codigo Color---------------->"+ colorGenerate())
                     creatreNewItems(editText.text!!.trim().toString())
                 }
             }
@@ -58,6 +57,8 @@ class MainActivity : AppCompatActivity() {
             builder.setCanceledOnTouchOutside(false)
             builder.show()
         }
+
+
     }
 
 
@@ -67,6 +68,7 @@ class MainActivity : AppCompatActivity() {
             val listSectionItems = Note.dbNoteSection.noteSectionDao().getNoteSection()
             uiThread {
                 listItems.clear()
+                println("total-----"+ listSectionItems)
                 if(listSectionItems.size == 0){
                     text_title.visibility = View.VISIBLE
                 }else{
@@ -75,7 +77,8 @@ class MainActivity : AppCompatActivity() {
                         val items = SectionModel(
                             listSectionItems[i].id,
                             listSectionItems[i].name,
-                            listSectionItems[i].color
+                            listSectionItems[i].color,
+                            listSectionItems[i].dateCreate
                         )
                         listItems.add(items)
                     }
@@ -91,18 +94,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun colorGenerate():Int{
-        val rnd = Random()
-        val color: Int = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-        return  color
+    private fun colorGenerate():String{
+        val colors = arrayOf(
+            "#CD6155",
+            "#8E44AD",
+            "#2980B9",
+            "#48C9B0",
+            "#2ECC71",
+            "#F1C40F",
+            "#CA6F1E",
+            "#707B7C",
+            "#2E4053",
+            "#935116",
+            "#A6ACAF",
+            "#34495E",
+            "#1A5276",
+            "#A9DFBF",
+            "#AED6F1",
+        )
+        return colors.random()
     }
 
     private fun creatreNewItems(nameItems:String){
         doAsync {
-            var noteSections = NoteSection(0, nameItems,"#2E6EBA")
+            var noteSections = NoteSection(0, nameItems,colorGenerate(), UtilsClass.Utils.getCurrentDate())
                 Note.dbNoteSection.noteSectionDao().insertNoteSection(noteSections)
-            uiThread {
-
+            uiThread {}
+            onComplete {
+                getEntity()
             }
         }
     }

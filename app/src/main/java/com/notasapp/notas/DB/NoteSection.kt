@@ -13,5 +13,7 @@ data class NoteSection(
     var name:String,
     @ColumnInfo(name = "color")
     var color:String,
+    @ColumnInfo(name = "dateCreate")
+    var dateCreate:String
 ){}
 
