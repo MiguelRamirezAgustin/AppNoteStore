@@ -11,12 +11,12 @@
         android:id="@+id/txtview_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-condensed-light"
+        android:gravity="center"
         android:text="Agregar nueva sescion"
         android:textColor="@color/color_black"
-        android:textSize="20dp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-condensed-light" />
+        android:textSize="20dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textLayout_item"
