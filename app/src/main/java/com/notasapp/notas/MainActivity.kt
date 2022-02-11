@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() {
             }
             onComplete {
                 println("Lista total items----------------->"+ listItems)
-                var adapter_ = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)})
+                var adapter_ = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)},{updateItems(it)} )
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items)
                 rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
                 rc_view.adapter =  adapter_
@@ -100,6 +100,16 @@ class MainActivity : AppCompatActivity() {
             println("Id Eliminar --> "+section)
             Note.dbNoteSection.noteSectionDao().deleteSectionItem(section)
             uiThread {
+                getListSections()
+            }
+        }
+    }
+
+    fun updateItems(model: NoteSection){
+        println("Data update to intems-->"+ model)
+        doAsync {
+            Note.dbNoteSection.noteSectionDao().updateSections(model.name, UtilsClass.Utils.getCurrentDate() , model.id)
+            onComplete {
                 getListSections()
             }
         }

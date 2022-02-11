@@ -1,87 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="350dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/txtview_title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:fontFamily="sans-serif-condensed-light"
-        android:gravity="center"
-        android:text="Agregar nueva sescion"
-        android:textColor="@color/color_black"
-        android:textSize="20dp" />
+        android:layout_height="350dp"
+        android:background="@drawable/backgraund_1">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textLayout_item"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@+id/txtview_title"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:hint="Correo"
-        style="@style/MyTextInputLayout"
-        app:hintTextColor="@color/color_primary"
-        android:layout_marginTop="30dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textFiel_text_items"
+        <TextView
+            android:id="@+id/txtview_title"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:fontFamily="sans-serif-light"
-            android:maxLength="50"
-            android:textColor="@color/color_black" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <!--- section button cancel,ok -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/textLayout_item"
-        android:layout_marginTop="40dp"
-        android:gravity="center">
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cancel"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_style"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textAllCaps="false"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
             android:fontFamily="sans-serif-condensed-light"
-            android:text="Cancelar"
-            android:layout_margin="20dp">
+            android:gravity="center"
+            android:text="Agregar nueva sescion"
+            android:textColor="@color/color_black"
+            android:textSize="22dp" />
 
-        </androidx.appcompat.widget.AppCompatButton>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textLayout_item"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/txtview_title"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Correo"
+            style="@style/MyTextInputLayout"
+            app:hintTextColor="@color/color_primary"
+            android:layout_marginTop="30dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_ok"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:background="@drawable/btn_style"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFiel_text_items"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:fontFamily="sans-serif-light"
+                android:maxLength="50"
+                android:textColor="@color/color_black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txtview_title_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtview_title"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp"
+            android:visibility="gone"
             android:fontFamily="sans-serif-condensed-light"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:text="Aceptar"
-            android:layout_margin="20dp">
+            android:gravity="center"
+            android:text="Agregar nueva sescion"
+            android:textColor="@color/color_black"
+            android:textSize="20dp" />
 
-        </androidx.appcompat.widget.AppCompatButton>
+        <!--- section button cancel,ok -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@+id/textLayout_item"
+            android:layout_marginTop="50dp"
+            android:gravity="center">
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_style"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-condensed-light"
+                android:text="Cancelar"
+                android:layout_margin="20dp">
 
-</RelativeLayout>
+            </androidx.appcompat.widget.AppCompatButton>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_ok"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/btn_style"
+                android:fontFamily="sans-serif-condensed-light"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textAllCaps="false"
+                android:text="Aceptar"
+                android:layout_margin="20dp">
+
+            </androidx.appcompat.widget.AppCompatButton>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>
