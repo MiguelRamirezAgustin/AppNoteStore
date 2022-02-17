@@ -8,8 +8,9 @@
         <entry key="app/src/main/res/drawable/btn_style.xml" value="0.153125" />
         <entry key="app/src/main/res/drawable/circle_drawable.xml" value="0.1421875" />
         <entry key="app/src/main/res/drawable/ic_baseline_create_new_folder_24.xml" value="0.25729166666666664" />
+        <entry key="app/src/main/res/drawable/layout_background.xml" value="0.1890625" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_new_note.xml" value="0.17289788407694268" />
+        <entry key="app/src/main/res/layout/activity_new_note.xml" value="0.335" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.24114583333333334" />
         <entry key="app/src/main/res/layout/btn_style.xml" value="0.13697916666666668" />
         <entry key="app/src/main/res/layout/dialog_customs_edit_items.xml" value="0.375" />

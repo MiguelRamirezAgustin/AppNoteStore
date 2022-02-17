@@ -84,10 +84,10 @@ class NewNoteActivity : AppCompatActivity() {
             }
             onComplete {
                 println("Lista total items section note---------->"+ listItemsNote)
-                var adapter_ = AdapterNoteSections(listSectionItems, this@NewNoteActivity,{deleteSection(it)},{updateSection(it)} )
+                var _adapter = AdapterNoteSections(listSectionItems, this@NewNoteActivity,{deleteSection(it)},{updateSection(it)} )
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items_note)
                 rc_view.layoutManager = LinearLayoutManager(this@NewNoteActivity)
-                rc_view.adapter =  adapter_
+                rc_view.adapter =  _adapter
             }
         }
     }
@@ -95,16 +95,19 @@ class NewNoteActivity : AppCompatActivity() {
 
     fun deleteSection(section: Int){
         doAsync {
-            //val idItem = contact.id
-            uiThread {
-
+            Note.dbSectionNote.SectionNoteDao().deleteSectionNoteItem(section)
+            uiThread {}
+            onComplete {
+                getListSectionsNote()
             }
         }
     }
 
     fun updateSection(model: SectionNote){
         doAsync {
+            Note.dbSectionNote.SectionNoteDao().updateSectionsNote(model.name, UtilsClass.Utils.getCurrentDate(), model.id)
             onComplete {
+                getListSectionsNote()
             }
         }
     }

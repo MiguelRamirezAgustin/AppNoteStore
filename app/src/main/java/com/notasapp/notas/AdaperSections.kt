@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
@@ -51,10 +52,12 @@ class AdaperSections(val items:List<NoteSection>,
             val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
             val btnAcept = view.findViewById<Button>(R.id.btn_ok)
                 builder.setView(view)
+
                 btnAcept.setOnClickListener {
                     builder.dismiss()
                     deleteSections(model_sections.id)
                 }
+
                 bnCancel.setOnClickListener {
                     builder.dismiss()
                 }
@@ -65,37 +68,24 @@ class AdaperSections(val items:List<NoteSection>,
         // New item update
         holder.update.setOnClickListener {
             val builder = AlertDialog.Builder(context)
-                .create()
+                          .create()
             val view = LayoutInflater.from(context).inflate(R.layout.dialog_customs_edit_items, null)
-            val img_dismiss = view.findViewById<ImageView>(R.id.img_dismiss)
-            val btn_update = view.findViewById<Button>(R.id.btn_update)
+            val img_dismiss     = view.findViewById<ImageView>(R.id.img_dismiss)
+            val btn_update      = view.findViewById<Button>(R.id.btn_update)
             val editText_update = view.findViewById<TextInputEditText>(R.id.textFiel_text_items_update)
                 editText_update.setText(model_sections.name)
-            editText_update.addTextChangedListener(object : TextWatcher {
-                override fun afterTextChanged(s: Editable) {
-                    if(s.toString().equals("")){
-                        btn_update.isEnabled = false
+                builder.setView(view)
+
+                btn_update.setOnClickListener {
+                    if(editText_update.text.toString().trim().isEmpty()){
+                        Toast.makeText(context, "Es requerido agregar un texto", Toast.LENGTH_SHORT ).show()
                     }else{
-                        btn_update.isEnabled = true
+                        var model = NoteSection(model_sections.id, editText_update.text.toString(), "", "")
+                        builder.dismiss()
+                        updateItems(model)
                     }
                 }
-                override fun beforeTextChanged(s: CharSequence, start: Int,
-                                               count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence, start: Int,
-                                           before: Int, count: Int) {}
-            })
 
-                builder.setView(view)
-                btn_update.setOnClickListener {
-                    builder.dismiss()
-                    var model = NoteSection(
-                        model_sections.id,
-                        editText_update.text.toString(),
-                        "",
-                        ""
-                    )
-                    updateItems(model)
-                }
                 img_dismiss.setOnClickListener {
                     builder.dismiss()
                 }
@@ -103,7 +93,7 @@ class AdaperSections(val items:List<NoteSection>,
                 builder.show()
         }
 
-        //new items
+        //Show items to sections
         holder.itemView.setOnClickListener {
             val intent = Intent(context, NewNoteActivity::class.java)
                 intent.putExtra("id", model_sections.id.toString())

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,12 +38,15 @@ class MainActivity : AppCompatActivity() {
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_customs_new_items, null)
             val editText = view.findViewById<TextInputEditText>(R.id.textFiel_text_items)
             val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
-            val btnAcep = view.findViewById<Button>(R.id.btn_ok)
+            val btnAcep  = view.findViewById<Button>(R.id.btn_ok)
             builder.setView(view)
+
             btnAcep.setOnClickListener {
-                builder.dismiss()
                 if(editText.text!!.trim().toString() != ""){
+                    builder.dismiss()
                     creatreNewItems(editText.text!!.trim().toString())
+                }else{
+                    Toast.makeText(this@MainActivity, "Es requerido agregar el nombre", Toast.LENGTH_SHORT ).show()
                 }
             }
             bnCancel.setOnClickListener {
