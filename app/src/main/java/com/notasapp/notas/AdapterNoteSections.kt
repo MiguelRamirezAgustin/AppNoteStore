@@ -2,6 +2,7 @@ package com.notasapp.notas
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.graphics.drawable.shapes.OvalShape
@@ -23,11 +24,8 @@ import kotlinx.android.synthetic.main.items_adapter_note_section.view.*
 class AdapterNoteSections(
                     val items:List<SectionNote>,
                     val context:Context,
-                    val deleteSection:(id:Int) -> Unit,
-                    val updateSection:(SectionNote)-> Unit
+                    val deleteSection:(id:Int) -> Unit
                     ):RecyclerView.Adapter<AdapterNoteSections.ViewHolder>() {
-
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.items_adapter_note_section, parent,false))
@@ -48,17 +46,17 @@ class AdapterNoteSections(
         holder.deleteNote.setOnClickListener {
             val builder = AlertDialog.Builder(context)
                 .create()
-            val view  = LayoutInflater.from(context).inflate(R.layout.dialog_customs_new_items, null)
-            val textView_title = view.findViewById<TextView>(R.id.txtview_title)
-            val textView_title_delete = view.findViewById<TextView>(R.id.txtview_title_delete)
-            textView_title.text = "¿Esta seguro de eliminar esta nota?"
-            val editText = view.findViewById<TextInputEditText>(R.id.textFiel_text_items)
-            editText.visibility = View.GONE
-            textView_title_delete.visibility = View.VISIBLE
-            textView_title_delete.text =  UtilsClass.Utils.converterText(model_note.name)
-            val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
-            val btnAcept = view.findViewById<Button>(R.id.btn_ok)
-            builder.setView(view)
+            val viewShow  = LayoutInflater.from(context).inflate(R.layout.dialog_customs_new_items, null)
+            val textView_title = viewShow.findViewById<TextView>(R.id.txtview_title)
+            val textView_title_delete = viewShow.findViewById<TextView>(R.id.txtview_title_delete)
+                textView_title.text   = "¿Esta seguro de eliminar esta nota?"
+            val editText = viewShow.findViewById<TextInputEditText>(R.id.textFiel_text_items)
+                editText.visibility = View.GONE
+                textView_title_delete.visibility = View.VISIBLE
+                textView_title_delete.text =  UtilsClass.Utils.converterText(model_note.name)
+            val bnCancel = viewShow.findViewById<Button>(R.id.btn_cancel)
+            val btnAcept = viewShow.findViewById<Button>(R.id.btn_ok)
+            builder.setView(viewShow)
 
             btnAcept.setOnClickListener {
                 builder.dismiss()
@@ -74,32 +72,14 @@ class AdapterNoteSections(
 
         // New item update
         holder.updateNote.setOnClickListener {
-            val builder = androidx.appcompat.app.AlertDialog.Builder(context)
-                .create()
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_customs_edit_items, null)
-            val img_dismiss     = view.findViewById<ImageView>(R.id.img_dismiss)
-            val btn_update      = view.findViewById<Button>(R.id.btn_update)
-            val editText_update = view.findViewById<TextInputEditText>(R.id.textFiel_text_items_update)
-            editText_update.setText(model_note.name)
-            builder.setView(view)
-
-            btn_update.setOnClickListener {
-                if(editText_update.text.toString().trim().isEmpty()){
-                    Toast.makeText(context, "Es requerido agregar un texto", Toast.LENGTH_SHORT ).show()
-                }else{
-                    var model = SectionNote(model_note.id, editText_update.text.toString(), "", 0,"")
-                    builder.dismiss()
-                    updateSection(model)
-                }
-            }
-
-            img_dismiss.setOnClickListener {
-                builder.dismiss()
-            }
-            builder.setCanceledOnTouchOutside(false)
-            builder.show()
+            val intent = Intent(context, WriteActivity::class.java)
+            intent.putExtra("idSection", model_note.idSections.toString())
+            intent.putExtra("processUpdate", "update")
+            intent.putExtra("titleSection", model_note.name)
+            intent.putExtra("titleSectionContent", model_note.textContent)
+            intent.putExtra("idNote", model_note.id.toString())
+            context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int {

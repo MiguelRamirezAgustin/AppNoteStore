@@ -1,5 +1,6 @@
 package com.notasapp.notas
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import com.notasapp.notas.DB.NoteSection
 import com.notasapp.notas.DB.SectionNote
 import com.notasapp.notas.Model.NoteSectionModel
 import com.notasapp.notas.Model.SectionNoteModel
+import com.notasapp.notas.Utilities.SharedPreference
 import com.notasapp.notas.Utilities.UtilsClass
 import kotlinx.android.synthetic.main.activity_new_note.*
 import org.jetbrains.anko.doAsync
@@ -29,33 +31,18 @@ class NewNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_note)
         supportActionBar?.hide()
-
         idSections =  intent.getStringExtra("id").toString().toInt()
-        var title_sections = intent.getStringExtra("title_sections").toString()
-        textView_title.setText(UtilsClass.Utils.converterText(title_sections))
+        var sharedPreferences = SharedPreference(this@NewNoteActivity)
+
+        textView_title.setText(UtilsClass.Utils.converterText(sharedPreferences.getStringTitle("titleSections").toString()))
         println("id new items--->"+ idSections)
         getListSectionsNote()
 
-
         btn_new_sections_note.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
-                .create()
-            val view = LayoutInflater.from(this).inflate(R.layout.dialog_customs_new_items, null)
-            val editText = view.findViewById<TextInputEditText>(R.id.textFiel_text_items)
-            val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
-            val btnAcep = view.findViewById<Button>(R.id.btn_ok)
-            builder.setView(view)
-            btnAcep.setOnClickListener {
-                builder.dismiss()
-                if(editText.text!!.trim().toString() != ""){
-                    creatreNewItemsNote(editText.text!!.trim().toString())
-                }
-            }
-            bnCancel.setOnClickListener {
-                builder.dismiss()
-            }
-            builder.setCanceledOnTouchOutside(false)
-            builder.show()
+            val intent = Intent(this@NewNoteActivity, WriteActivity::class.java)
+                intent.putExtra("idSection", idSections.toString())
+                intent.putExtra("processUpdate", "updateNot")
+            startActivity(intent)
         }
     }
 
@@ -74,6 +61,7 @@ class NewNoteActivity : AppCompatActivity() {
                         val items = SectionNoteModel(
                             listSectionItems[i].id,
                             listSectionItems[i].name,
+                            listSectionItems[i].textContent,
                             listSectionItems[i].dateCreate,
                             listSectionItems[i].idSections,
                             listSectionItems[i].color
@@ -84,10 +72,10 @@ class NewNoteActivity : AppCompatActivity() {
             }
             onComplete {
                 println("Lista total items section note---------->"+ listItemsNote)
-                var _adapter = AdapterNoteSections(listSectionItems, this@NewNoteActivity,{deleteSection(it)},{updateSection(it)} )
+                var adapter = AdapterNoteSections(listSectionItems, this@NewNoteActivity,{deleteSection(it)})
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items_note)
-                rc_view.layoutManager = LinearLayoutManager(this@NewNoteActivity)
-                rc_view.adapter =  _adapter
+                    rc_view.layoutManager = LinearLayoutManager(this@NewNoteActivity)
+                    rc_view.adapter =  adapter
             }
         }
     }
@@ -103,25 +91,5 @@ class NewNoteActivity : AppCompatActivity() {
         }
     }
 
-    fun updateSection(model: SectionNote){
-        doAsync {
-            Note.dbSectionNote.SectionNoteDao().updateSectionsNote(model.name, UtilsClass.Utils.getCurrentDate(), model.id)
-            onComplete {
-                getListSectionsNote()
-            }
-        }
-    }
-
-
-    private fun creatreNewItemsNote(nameItems:String){
-        doAsync {
-            var sectionNote = SectionNote(0, nameItems, UtilsClass.Utils.getCurrentDate(), idSections ,UtilsClass.Utils.colorGenerate())
-            Note.dbSectionNote.SectionNoteDao().insertSectionNote(sectionNote)
-            uiThread {}
-            onComplete {
-                getListSectionsNote()
-            }
-        }
-    }
 
 }

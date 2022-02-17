@@ -16,6 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.notasapp.notas.DB.NoteSection
+import com.notasapp.notas.Utilities.SharedPreference
 import com.notasapp.notas.Utilities.UtilsClass
 import kotlinx.android.synthetic.main.item_adapter_sections.view.*
 
@@ -95,9 +96,10 @@ class AdaperSections(val items:List<NoteSection>,
 
         //Show items to sections
         holder.itemView.setOnClickListener {
+            var sharedPreferences = SharedPreference(context)
+                sharedPreferences.saveStringTitle("titleSections", model_sections.name)
             val intent = Intent(context, NewNoteActivity::class.java)
                 intent.putExtra("id", model_sections.id.toString())
-                intent.putExtra("title_sections", model_sections.name.toString())
                 context.startActivity(intent)
         }
     }

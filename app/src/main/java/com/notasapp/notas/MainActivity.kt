@@ -84,10 +84,10 @@ class MainActivity : AppCompatActivity() {
             }
             onComplete {
                 println("Lista total items----------------->"+ listItems)
-                var adapter_ = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)},{updateItems(it)} )
+                var adapter = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)},{updateItems(it)} )
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items)
                 rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
-                rc_view.adapter =  adapter_
+                rc_view.adapter =  adapter
             }
         }
     }

@@ -10,4 +10,5 @@
     <color name="color_blue">#2E6EBA</color>
     <color name="color_blue_primary">#61C7E1</color>
     <color name="color_blue_secundary">#3C7DA8</color>
+    <color name="color_transparent">#003C7DA8</color>
 </resources>

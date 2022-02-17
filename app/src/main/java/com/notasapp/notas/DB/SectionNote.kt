@@ -11,6 +11,8 @@ data class SectionNote(
     var id:Int,
     @ColumnInfo(name = "name")
     var name:String,
+    @ColumnInfo(name = "textContent")
+    var textContent:String,
     @ColumnInfo(name = "dateCreate")
     var dateCreate:String,
     @ColumnInfo(name = "idSections")
