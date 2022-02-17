@@ -1,6 +1,7 @@
 package com.notasapp.notas
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.text.Editable
 import android.text.TextWatcher
@@ -61,6 +62,7 @@ class AdaperSections(val items:List<NoteSection>,
                 builder.show()
         }
 
+        // New item update
         holder.update.setOnClickListener {
             val builder = AlertDialog.Builder(context)
                 .create()
@@ -99,6 +101,14 @@ class AdaperSections(val items:List<NoteSection>,
                 }
                 builder.setCanceledOnTouchOutside(false)
                 builder.show()
+        }
+
+        //new items
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, NewNoteActivity::class.java)
+                intent.putExtra("id", model_sections.id.toString())
+                intent.putExtra("title_sections", model_sections.name.toString())
+                context.startActivity(intent)
         }
     }
 

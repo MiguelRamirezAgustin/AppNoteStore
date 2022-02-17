@@ -1,6 +1,6 @@
 package com.notasapp.notas.Model
 
-data class SectionModel (
+data class NoteSectionModel (
         var id:Int? = 0,
         var name:String? = "",
         var colorName:String? = "",

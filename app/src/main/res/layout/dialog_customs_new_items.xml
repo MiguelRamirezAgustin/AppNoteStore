@@ -14,8 +14,10 @@
             android:id="@+id/txtview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="35dp"
-            android:fontFamily="sans-serif-condensed-light"
+            android:layout_marginRight="10dp"
+            android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:text="Agregar nueva sescion"
             android:textColor="@color/color_black"
@@ -26,21 +28,22 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_below="@+id/txtview_title"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
             android:hint="Correo"
             style="@style/MyTextInputLayout"
             app:hintTextColor="@color/color_primary"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="40dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/textFiel_text_items"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:fontFamily="sans-serif-light"
-                android:maxLength="50"
+                android:layout_height="55dp"
+                android:fontFamily="sans-serif"
+                android:maxLength="30"
+                android:textSize="20sp"
                 android:textColor="@color/color_black" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -60,7 +63,7 @@
             android:gravity="center"
             android:text="Agregar nueva sescion"
             android:textColor="@color/color_black"
-            android:textSize="20dp" />
+            android:textSize="22dp" />
 
         <!--- section button cancel,ok -->
         <LinearLayout
@@ -68,7 +71,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_below="@+id/textLayout_item"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:gravity="center">
 
             <androidx.appcompat.widget.AppCompatButton
@@ -78,12 +81,11 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/btn_style"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textAllCaps="false"
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="Cancelar"
                 android:layout_margin="20dp">
-
             </androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
@@ -94,11 +96,10 @@
                 android:background="@drawable/btn_style"
                 android:fontFamily="sans-serif-condensed-light"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:textAllCaps="false"
                 android:text="Aceptar"
                 android:layout_margin="20dp">
-
             </androidx.appcompat.widget.AppCompatButton>
 
         </LinearLayout>

@@ -18,5 +18,5 @@ interface NoteSectionDAO {
     fun deleteSectionItem(parameterId:Int)
 
     @Query("UPDATE noteSection SET name=:updateName, dateCreate=:updateDate WHERE id=:idUpdate")
-    fun updateSections(updateName:String, updateDate:String, idUpdate:Int)
+    fun getNoteSectionNoteUpdate(updateName:String, updateDate:String, idUpdate:Int)
 }

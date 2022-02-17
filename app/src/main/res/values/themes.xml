@@ -27,5 +27,13 @@
     </style>
 
 
+    <style name="fabtheme" parent="Widget.Design.FloatingActionButton">
+        <item name="colorOnSecondary">@color/color_blue_secundary</item>
+    </style>
+
+    <style name="fabthemegray" parent="Widget.Design.FloatingActionButton">
+        <item name="colorOnSecondary">@color/color_gray</item>
+    </style>
+
 
 </resources>

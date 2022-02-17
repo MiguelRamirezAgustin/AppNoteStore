@@ -11,29 +11,35 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.notasapp.notas.DB.Note
 import com.notasapp.notas.DB.NoteSection
+import com.notasapp.notas.DB.SectionNote
 import com.notasapp.notas.Model.NoteSectionModel
+import com.notasapp.notas.Model.SectionNoteModel
 import com.notasapp.notas.Utilities.UtilsClass
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_new_note.*
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.onComplete
 import org.jetbrains.anko.uiThread
-import java.util.*
-import kotlin.collections.ArrayList
 
-class MainActivity : AppCompatActivity() {
+class NewNoteActivity : AppCompatActivity() {
 
-    var listItems :MutableList<NoteSectionModel> = ArrayList()
+    var idSections :Int  = 0
+    var listItemsNote :MutableList<SectionNoteModel> = ArrayList()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_new_note)
         supportActionBar?.hide()
-        getListSections()
+
+        idSections =  intent.getStringExtra("id").toString().toInt()
+        var title_sections = intent.getStringExtra("title_sections").toString()
+        textView_title.setText(UtilsClass.Utils.converterText(title_sections))
+        println("id new items--->"+ idSections)
+        getListSectionsNote()
 
 
-        //Add new items sections
-        btn_new_sections.setOnClickListener {
+        btn_new_sections_note.setOnClickListener {
             val builder = AlertDialog.Builder(this)
-              .create()
+                .create()
             val view = LayoutInflater.from(this).inflate(R.layout.dialog_customs_new_items, null)
             val editText = view.findViewById<TextInputEditText>(R.id.textFiel_text_items)
             val bnCancel = view.findViewById<Button>(R.id.btn_cancel)
@@ -42,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             btnAcep.setOnClickListener {
                 builder.dismiss()
                 if(editText.text!!.trim().toString() != ""){
-                    creatreNewItems(editText.text!!.trim().toString())
+                    creatreNewItemsNote(editText.text!!.trim().toString())
                 }
             }
             bnCancel.setOnClickListener {
@@ -51,72 +57,66 @@ class MainActivity : AppCompatActivity() {
             builder.setCanceledOnTouchOutside(false)
             builder.show()
         }
-
-
     }
 
 
-
-    private fun getListSections(){
+    private fun getListSectionsNote(){
         doAsync {
-            val listSectionItems = Note.dbNoteSection.noteSectionDao().getNoteSection()
+            val listSectionItems = Note.dbSectionNote.SectionNoteDao().getNoteSectionNote(idSections)
             uiThread {
-                listItems.clear()
+                listItemsNote.clear()
                 println("total-----"+ listSectionItems)
                 if(listSectionItems.size == 0){
-                    text_title.visibility = View.VISIBLE
+                    text_title_note.visibility = View.VISIBLE
                 }else{
-                    text_title.visibility = View.GONE
+                    text_title_note.visibility = View.GONE
                     for(i in 0 until listSectionItems.size){
-                        val items = NoteSectionModel(
+                        val items = SectionNoteModel(
                             listSectionItems[i].id,
                             listSectionItems[i].name,
-                            listSectionItems[i].color,
-                            listSectionItems[i].dateCreate
+                            listSectionItems[i].dateCreate,
+                            listSectionItems[i].idSections,
+                            listSectionItems[i].color
                         )
-                        listItems.add(items)
+                        listItemsNote.add(items)
                     }
                 }
             }
             onComplete {
-                println("Lista total items----------------->"+ listItems)
-                var adapter_ = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)},{updateItems(it)} )
-                val rc_view = findViewById<RecyclerView>(R.id.rv_items)
-                rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
+                println("Lista total items section note---------->"+ listItemsNote)
+                var adapter_ = AdapterNoteSections(listSectionItems, this@NewNoteActivity,{deleteSection(it)},{updateSection(it)} )
+                val rc_view = findViewById<RecyclerView>(R.id.rv_items_note)
+                rc_view.layoutManager = LinearLayoutManager(this@NewNoteActivity)
                 rc_view.adapter =  adapter_
             }
         }
     }
 
-    fun deleteItem(section: Int){
+
+    fun deleteSection(section: Int){
         doAsync {
             //val idItem = contact.id
-            println("Id Eliminar --> "+section)
-            Note.dbNoteSection.noteSectionDao().deleteSectionItem(section)
             uiThread {
-                getListSections()
+
             }
         }
     }
 
-    fun updateItems(model: NoteSection){
-        println("Data update to intems-->"+ model)
+    fun updateSection(model: SectionNote){
         doAsync {
-            Note.dbNoteSection.noteSectionDao().getNoteSectionNoteUpdate(model.name, UtilsClass.Utils.getCurrentDate() , model.id)
             onComplete {
-                getListSections()
             }
         }
     }
 
 
-    private fun creatreNewItems(nameItems:String){
+    private fun creatreNewItemsNote(nameItems:String){
         doAsync {
-            var noteSections = NoteSection(0, nameItems,UtilsClass.Utils.colorGenerate(), UtilsClass.Utils.getCurrentDate())
-                Note.dbNoteSection.noteSectionDao().insertNoteSection(noteSections)
+            var sectionNote = SectionNote(0, nameItems, UtilsClass.Utils.getCurrentDate(), idSections ,UtilsClass.Utils.colorGenerate())
+            Note.dbSectionNote.SectionNoteDao().insertSectionNote(sectionNote)
             uiThread {}
             onComplete {
-                getListSections()
+                getListSectionsNote()
             }
         }
     }
