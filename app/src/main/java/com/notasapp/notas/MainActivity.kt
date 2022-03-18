@@ -68,9 +68,9 @@ class MainActivity : AppCompatActivity() {
                 listItems.clear()
                 println("total-----"+ listSectionItems)
                 if(listSectionItems.size == 0){
-                    text_title.visibility = View.VISIBLE
+                    linear_contenct.visibility = View.VISIBLE
                 }else{
-                    text_title.visibility = View.GONE
+                    linear_contenct.visibility = View.GONE
                     for(i in 0 until listSectionItems.size){
                         val items = NoteSectionModel(
                             listSectionItems[i].id,

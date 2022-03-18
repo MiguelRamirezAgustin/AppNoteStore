@@ -54,9 +54,9 @@ class NewNoteActivity : AppCompatActivity() {
                 listItemsNote.clear()
                 println("total-----"+ listSectionItems)
                 if(listSectionItems.size == 0){
-                    text_title_note.visibility = View.VISIBLE
+                    linear_note.visibility = View.VISIBLE
                 }else{
-                    text_title_note.visibility = View.GONE
+                    linear_note.visibility = View.GONE
                     for(i in 0 until listSectionItems.size){
                         val items = SectionNoteModel(
                             listSectionItems[i].id,
