@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.notasapp.notas">
 
-
-
     <application
         android:name=".DB.Note"
         android:allowBackup="true"
@@ -14,12 +12,12 @@
         android:theme="@style/Theme.Notas">
         <activity
             android:name=".WriteActivity"
-            android:noHistory="true"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true" />
         <activity
             android:name=".NewNoteActivity"
-            android:noHistory="true"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

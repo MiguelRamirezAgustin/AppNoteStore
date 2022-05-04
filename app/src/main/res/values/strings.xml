@@ -2,4 +2,8 @@
     <string name="app_name">Notas</string>
     <string name="app_note_register">No cuenta con apartados creados</string>
     <string name="title_Items">Sesiones</string>
+    <string name="appwidget_text">Ejemplo</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">Titulo</string>
+
 </resources>
