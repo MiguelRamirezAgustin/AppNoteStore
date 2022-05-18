@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.notasapp.notas.DB.Note
 import com.notasapp.notas.DB.SectionNote
 import com.notasapp.notas.Utilities.UtilsClass
@@ -48,6 +51,16 @@ class WriteActivity : AppCompatActivity() {
             rtEditText.setText(intent.getStringExtra("titleSectionContent"))
             idNote = intent.getStringExtra("idNote").toString().toInt()
             img_save.isEnabled = false
+            rtEditText.isEnabled = false
+            img_editend.visibility = View.VISIBLE
+        }
+
+        img_editend.setOnClickListener {
+            rtEditText.isEnabled = true
+            rtEditText.requestFocus()
+            rtEditText.setSelection(rtEditText.length())
+            rtEditText.showSoftKeyboard()
+            img_editend.visibility = View.GONE
         }
 
         img_close.setOnClickListener {
@@ -103,12 +116,11 @@ class WriteActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable) {}
         })
+    }
 
-
-
-
-
-
+    fun EditText.showSoftKeyboard(){
+        (this.context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager)
+            .showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 
     fun updateNote() {
