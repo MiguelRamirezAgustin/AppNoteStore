@@ -69,7 +69,6 @@ class WriteActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         img_save.setOnClickListener {
             if (txt_title.text.toString().trim().isEmpty()) {
                 Toast.makeText(
