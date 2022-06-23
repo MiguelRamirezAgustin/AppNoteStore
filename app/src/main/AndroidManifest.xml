@@ -13,11 +13,10 @@
         <activity
             android:name=".WriteActivity"
             android:exported="true"
-            android:noHistory="true" />
+            android:noHistory="true"/>
         <activity
             android:name=".NewNoteActivity"
-            android:exported="true"
-            android:noHistory="true" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />
