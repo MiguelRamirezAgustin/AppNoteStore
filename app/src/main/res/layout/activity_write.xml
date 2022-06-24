@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".WriteActivity"
     android:id="@+id/contraint_contenct"
-    android:background="@drawable/backgraund_3">
+    android:background="@drawable/imagenwrite">
 
     <LinearLayout
         android:id="@+id/linearTitle"
@@ -15,7 +15,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:orientation="horizontal">
