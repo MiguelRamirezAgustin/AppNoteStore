@@ -88,7 +88,6 @@
                 android:textAllCaps="false"
                 android:fontFamily="sans-serif-condensed-light"
                 android:text="Cancelar"
-
                 android:layout_margin="20dp">
             </androidx.appcompat.widget.AppCompatButton>
 

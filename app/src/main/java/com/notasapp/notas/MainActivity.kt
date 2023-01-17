@@ -2,6 +2,7 @@ package com.notasapp.notas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -66,7 +67,6 @@ class MainActivity : AppCompatActivity() {
             val listSectionItems = Note.dbNoteSection.noteSectionDao().getNoteSection()
             uiThread {
                 listItems.clear()
-                println("total-----"+ listSectionItems)
                 if(listSectionItems.size == 0){
                     linear_contenct.visibility = View.VISIBLE
                 }else{
@@ -83,7 +83,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             onComplete {
-                println("Lista total items----------------->"+ listItems)
                 var adapter = AdaperSections(listSectionItems, this@MainActivity,{deleteItem(it)},{updateItems(it)} )
                 val rc_view = findViewById<RecyclerView>(R.id.rv_items)
                 rc_view.layoutManager = LinearLayoutManager(this@MainActivity)
@@ -95,7 +94,6 @@ class MainActivity : AppCompatActivity() {
     fun deleteItem(section: Int){
         doAsync {
             //val idItem = contact.id
-            println("Id Eliminar --> "+section)
             Note.dbNoteSection.noteSectionDao().deleteSectionItem(section)
             uiThread {
                 getListSections()
@@ -104,7 +102,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun updateItems(model: NoteSection){
-        println("Data update to intems-->"+ model)
         doAsync {
             Note.dbNoteSection.noteSectionDao().getNoteSectionNoteUpdate(model.name, UtilsClass.Utils.getCurrentDate() , model.id)
             onComplete {

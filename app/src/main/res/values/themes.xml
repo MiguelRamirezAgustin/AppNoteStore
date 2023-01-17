@@ -43,4 +43,13 @@
     <style name="fabthemegray" parent="Widget.Design.FloatingActionButton">
         <item name="colorOnSecondary">@color/color_gray</item>
     </style>
+
+    <style name="Theme.Notas.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Notas.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Notas.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
